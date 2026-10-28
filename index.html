@@ -85,7 +85,7 @@
         </span>
       </div>
       <div class="flex items-center gap-2 self-end sm:self-auto shrink-0">
-        <button onclick="pingLiveCluster(true)" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] transition cursor-pointer">
+        <button onclick="window.location.reload()" class="px-2.5 py-1 rounded-lg bg-white/10 hover:bg-white/20 text-white text-[10px] transition cursor-pointer">
           🔄 Re-Ping Node
         </button>
         <a href="#wake-cluster-section" class="px-3 py-1 rounded-lg bg-white text-black font-sans font-semibold text-[11px] hover:bg-white/90 transition">
@@ -121,14 +121,8 @@
       </nav>
 
       <div class="flex items-center gap-2 shrink-0">
-        <button onclick="toggleCommandPalette()" class="px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/15 border border-white/10 text-xs font-mono text-[#86868B] hover:text-white transition cursor-pointer flex items-center gap-1.5">
-          <span>🔍</span>
-          <span class="hidden sm:inline">Search</span>
-          <kbd class="hidden md:inline text-[10px] px-1.5 py-0.2 rounded bg-white/10">⌘K</kbd>
-        </button>
-        <button onclick="toggleTheme()" id="theme-btn" class="px-3 py-1.5 rounded-full bg-white/[0.06] hover:bg-white/15 border border-white/10 text-xs font-mono text-white transition cursor-pointer">
-          ☀
-        </button>
+        
+        
         <a href="#wake-cluster-section" class="px-4 py-1.5 rounded-full bg-[#2997FF] hover:bg-[#2997FF]/90 text-white text-xs font-semibold transition">
           Boot Live Server
         </a>
@@ -501,20 +495,38 @@ OBX|4|NM|K||4.2|mEq/L|3.5-5.1|N</textarea>
     <!-- ========================================================================= -->
     <!-- 5. INTERACTIVE 32-TOOTH DENTAL ODONTOGRAM & CDSS ALLERGY LAB              -->
     <!-- ========================================================================= -->
-    <section id="specialty-labs" class="rounded-3xl apple-glass p-6 sm:p-10 space-y-6">
-      <div class="flex flex-wrap justify-between items-end gap-4 border-b border-white/10 pb-4">
+    <section id="specialty-labs" class="rounded-3xl apple-glass p-5 sm:p-10 space-y-6">
+      <div class="flex flex-wrap justify-between items-end gap-4 border-b border-white/[0.06] pb-4">
         <div>
           <span class="text-xs font-mono uppercase tracking-widest text-[#BF5AF2]">Interactive Specialty Engine • Port :4020</span>
-          <h2 class="text-2xl sm:text-3xl font-semibold text-white mt-1">32-Tooth FDI Dental Odontogram Simulator</h2>
-          <p class="text-xs text-[#86868B] mt-1">Click any tooth (11–48) to cycle: Healthy → Caries (BDT 1,800) → RCT (BDT 6,500) → Crown (BDT 8,500) → Implant (BDT 35,000)</p>
+          <h2 class="text-xl sm:text-3xl font-semibold text-white mt-1">32-Tooth FDI Dental Odontogram Simulator</h2>
+          <p class="text-xs text-[#86868B] mt-0.5">Click any tooth to cycle status: Healthy → Caries (BDT 1,800) → RCT (BDT 6,500) → Crown (BDT 8,500) → Implant (BDT 35,000)</p>
         </div>
-        <div class="font-mono text-right">
+        <div class="font-mono text-left sm:text-right">
           <span class="text-[10px] text-[#86868B] block">Restorative Treatment Estimate</span>
           <strong id="dental-total-bdt" class="text-2xl text-[#30D158]">BDT 51,800</strong>
         </div>
       </div>
-      <div class="overflow-x-auto pb-2 no-scrollbar">
-        <div id="fdi-teeth-grid" class="min-w-[620px] grid grid-cols-16 gap-1.5 font-mono text-xs"></div>
+
+      <!-- Border-free clean container -->
+      <div class="p-4 sm:p-6 rounded-2xl bg-white/[0.02] overflow-x-auto no-scrollbar">
+        <div class="min-w-[680px] space-y-4 font-mono text-xs">
+          <div>
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[10px] text-[#86868B] uppercase tracking-wider font-bold">Maxillary Arch (Upper Teeth 18–28)</span>
+              <span class="text-[10px] text-[#2997FF]">16 FDI Positions</span>
+            </div>
+            <div id="fdi-upper-grid" style="display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); gap: 6px;"></div>
+          </div>
+
+          <div class="pt-3 border-t border-white/[0.06]">
+            <div class="flex justify-between items-center mb-2">
+              <span class="text-[10px] text-[#86868B] uppercase tracking-wider font-bold">Mandibular Arch (Lower Teeth 48–38)</span>
+              <span class="text-[10px] text-[#30D158]">16 FDI Positions</span>
+            </div>
+            <div id="fdi-lower-grid" style="display: grid; grid-template-columns: repeat(16, minmax(0, 1fr)); gap: 6px;"></div>
+          </div>
+        </div>
       </div>
     </section>
 
@@ -667,9 +679,8 @@ OBX|4|NM|K||4.2|mEq/L|3.5-5.1|N</textarea>
   <!-- COMPLETE CLIENT-SIDE JAVASCRIPT ENGINE                                    -->
   <!-- ========================================================================= -->
   <script>
-    // 1. CONFIGURE YOUR LIVE CLOUDFLARE TUNNEL URL HERE:
-    // If your PC is turned on, this page will automatically detect it and offer 1-click entry!
-    const LIVE_CLUSTER_URL = ''; // e.g. 'https://live.yourdomain.com'
+    
+    const LIVE_CLUSTER_URL = ''; 
 
     async function pingLiveCluster(manual = false) {
       const logBox = document.getElementById('diagnostic-log-box');
@@ -997,34 +1008,41 @@ OBX|4|NM|K||4.2|mEq/L|3.5-5.1|N</textarea>
       ['06. Split POS & FHIR R4', 'service-billing (:4004)', 'Cash + bKash settlement triggers PG notify_clinic_event() & exports HL7 FHIR R4 bundle.']
     ];
 
-    const TEETH = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28,48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
+    const FDI_TEETH = [18,17,16,15,14,13,12,11,21,22,23,24,25,26,27,28,48,47,46,45,44,43,42,41,31,32,33,34,35,36,37,38];
     const toothState = { 16: 'RCT', 26: 'CROWN', 36: 'CARIES', 46: 'IMPLANT' };
     const toothFee = { HEALTHY: 0, CARIES: 1800, RCT: 6500, CROWN: 8500, IMPLANT: 35000 };
 
     function renderOdontogram() {
       let total = 0;
-      document.getElementById('fdi-teeth-grid').innerHTML = TEETH.map(t => {
+      const upper = FDI_TEETH.slice(0, 16);
+      const lower = FDI_TEETH.slice(16, 32);
+
+      const makeHtml = arr => arr.map(t => {
         const st = toothState[t] || 'HEALTHY';
         total += toothFee[st];
-        const col = st === 'CARIES' ? 'border-[#FF453A] text-[#FF453A] bg-[#FF453A]/20' :
-                    st === 'RCT' ? 'border-[#FF9F0A] text-[#FF9F0A] bg-[#FF9F0A]/20' :
-                    st === 'CROWN' ? 'border-[#2997FF] text-[#2997FF] bg-[#2997FF]/20' :
-                    st === 'IMPLANT' ? 'border-[#BF5AF2] text-[#BF5AF2] bg-[#BF5AF2]/20' :
-                    'border-white/10 text-white bg-white/[0.03]';
-        return `<button onclick="cycleTooth(${t})" class="p-2 rounded-xl border text-center cursor-pointer transition ${col}">
-          <strong class="block">${t}</strong>
-          <span class="text-[8px] uppercase block mt-0.5">${st.slice(0,4)}</span>
+        // Clean background fills without any border lines
+        const col = st === 'CARIES' ? 'bg-[#FF453A]/25 text-[#FF453A]' :
+                    st === 'RCT' ? 'bg-[#FF9F0A]/25 text-[#FF9F0A]' :
+                    st === 'CROWN' ? 'bg-[#2997FF]/25 text-[#2997FF]' :
+                    st === 'IMPLANT' ? 'bg-[#BF5AF2]/25 text-[#BF5AF2]' :
+                    'bg-white/[0.04] text-white hover:bg-white/[0.08]';
+        return `<button onclick="cycleTooth(${t})" class="p-2.5 rounded-xl text-center cursor-pointer transition ${col}">
+          <strong class="block text-xs font-bold">${t}</strong>
+          <span class="text-[7px] uppercase block mt-0.5 font-mono truncate opacity-80">${st.slice(0,4)}</span>
         </button>`;
       }).join('');
+
+      document.getElementById('fdi-upper-grid').innerHTML = makeHtml(upper);
+      document.getElementById('fdi-lower-grid').innerHTML = makeHtml(lower);
       document.getElementById('dental-total-bdt').textContent = `BDT ${total.toLocaleString()}`;
     }
+
     function cycleTooth(t) {
       const order = ['HEALTHY', 'CARIES', 'RCT', 'CROWN', 'IMPLANT'];
       const cur = toothState[t] || 'HEALTHY';
       toothState[t] = order[(order.indexOf(cur) + 1) % order.length];
       renderOdontogram();
     }
-
     const SERVICES = [
       [4001, 'communications', 'SSE & WebRTC Bus'], [4002, 'appointments', 'OPD Queue Engine'],
       [4003, 'clinical', 'Core EMR & CPOE'], [4004, 'billing', 'POS & 837 RCM'],
